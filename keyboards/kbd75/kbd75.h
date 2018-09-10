@@ -13,3 +13,5 @@
 #endif
 
 #endif
+
+#define TAPPING_TERM 150

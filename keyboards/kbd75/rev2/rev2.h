@@ -4,7 +4,6 @@
 #include "quantum.h"
 #include "../kbd75.h"
 
-
 // LAYOUT for all possible switch positions on a KBD75 rev 2
 #define LAYOUT_numpad( \
 	K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013, K014, K015, \
