@@ -28,6 +28,24 @@
 #define _RS 4
 #define _FN 5
 
+//Tap Dance Declarations
+enum {
+  TD_LSQBRACKET_LBRACKET = 0,
+  TD_RSQBRACKET_RBRACKET,
+  TD_LCTL_L2,
+  TD_WIN_EXPLORER
+};
+
+//Tap Dance Definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+  //Tap once for Esc, twice for Caps Lock
+  [TD_LSQBRACKET_LBRACKET]  = ACTION_TAP_DANCE_DOUBLE(KC_LBRACKET, LSFT(KC_9)),
+  [TD_RSQBRACKET_RBRACKET]  = ACTION_TAP_DANCE_DOUBLE(KC_RBRACKET, LSFT(KC_0)),
+  [TD_LCTL_L2] = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, MO(2)),
+  [TD_WIN_EXPLORER] = ACTION_TAP_DANCE_DOUBLE(KC_LGUI, KC_MY_COMPUTER)
+// Other declarations would go here, separated by commas, if you have them
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* QWERTY - MIT ENHANCED / GRID COMPATIBLE
@@ -40,16 +58,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | LSHIFT | Z      | X      | C      | V      | B      | N      | M      | ,      | .      | /      |        | RSHIFT | UP     | PG DN  |
  * |--------+--------+--------+--------+--------+- 2u ------------+--------+--------+--------+--------+--------+--------+--------+--------|
- * | LCTRL  | LALT   | LGUI   | BRITE  | RAISE  | XXXXXX . SPACE  | LOWER  | RGUI   | RALT   | RCTRL  | FN     | LEFT   | DOWN   | RIGHT  |
+ * | LCTRL  | LGUI   | LALT   | BRITE  | RAISE  | XXXXXX . SPACE  | LOWER  | RGUI   | RALT   | RCTRL  | FN     | LEFT   | DOWN   | RIGHT  |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
-	
+
  [_QW] = { /* QWERTY */
   { KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,    KC_DEL,  KC_BSPC  },
-  { KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC,   KC_BSLS, KC_ENTER   },
+  { KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    TD(TD_LSQBRACKET_LBRACKET), TD(TD_RSQBRACKET_RBRACKET),   KC_BSLS, KC_ENTER   },
   { KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_HOME,   KC_END,  KC_PGUP  },
   { KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, ___T___, KC_RSHIFT, KC_UP,   KC_PGDN  },
-  { KC_LCTL, KC_LALT, KC_LGUI, M(0),    MO(_RS), KC_SPC,  KC_SPC,  MO(_LW), KC_RGUI, KC_RALT, KC_RCTL, MO(_FN), KC_LEFT,   KC_DOWN, KC_RGHT  },
+  { KC_LCTL, KC_LGUI, KC_LALT, M(0),    MO(_RS), KC_SPC,  KC_SPC,  MO(_LW), KC_RGUI, KC_RALT, KC_RCTL, MO(_FN), KC_LEFT,   KC_DOWN, KC_RGHT  },
  },
 
 /* COLEMAK - MIT ENHANCED / GRID COMPATIBLE
@@ -65,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | BRITE  | LCTRL  | LALT   | LGUI   | RAISE  | XXXXXX . SPACE  | LOWER  | RGUI   | RALT   | RCTRL  | FN     | LEFT   | DOWN   | RIGHT  |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
-	
+
  [_CM] = { /* COLEMAK */
   { KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_BSPC  },
   { KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL   },
@@ -73,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_RSFT, KC_UP,   KC_PGDN  },
   { M(0),    KC_LCTL, KC_LALT, KC_LGUI, MO(_RS), KC_SPC,  KC_SPC,  MO(_LW), KC_RGUI, KC_RALT, KC_RCTL, MO(_FN), KC_LEFT, KC_DOWN, KC_RGHT  },
  },
-	
+
 /* DVORAK - MIT ENHANCED / GRID COMPATIBLE
  * .---------------------------------------------------------------------------------------------------------------------- 2u ------------.
  * | `      | 1      | 2      | 3      | 4      | 5      | 6      | 7      | 8      | 9      | 0      | -      | =      | XXXXXX . BACKSP |
@@ -109,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |        |        |        |        | XXXXXX .        |        |        |        |        |        |        |        |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
- 
+
  [_LW] = { /* LOWERED */
   { _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  ___T___, ___T___  },
   { _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______, _______, _______, KC_INS   },
@@ -131,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |        |        |        |        | XXXXXX .        |        |        |        |        |        |        |        |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
- 
+
  [_RS] = { /* RAISED */
   { _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  ___T___, ___T___  },
   { _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______, _______, _______, KC_INS   },
@@ -139,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, ___T___, ___T___, _______, _______  },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  },
  },
- 
+
 /* FUNCTION
  * .---------------------------------------------------------------------------------------------------------------------- 2u ------------.
  * | NUM LK | F1     | F2     | F3     | F4     | F5     | F6     | F7     | F8     | F9     | F10    | F11    | F12    | XXXXXX .        |
@@ -153,7 +171,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | RESET  |        | QWERTY | COLEMK | DVORAK | XXXXXX . MS BT1 |        |        |        |        |        | MOUS L | MOUS D | MOUS R |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
- 
+
  [_FN] = { /* FUNCTION */
   { KC_NLCK, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  ___T___, ___T___  },
   { KC_SLCK, KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  KC_PAUS, KC_PSCR  },
