@@ -21,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,------------------------.
    * | FN   | APP  | F7  | F1 |
    * |------|------|-----|----|
-   * | L2   | CALC | F8  | F2 |
+   * | L2   | EXPL | F8  | F2 |
    * |------|------|-----|----|
    * | L3   | PLAY | F9  | F3 |
    * |------|------|-----|----|
@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BL] = LAYOUT_ortho_6x4(
   MO(_FL), KC_APP,  KC_F7,  KC_F1, \
-  MO(_L2), KC_CALC,  KC_F8,  KC_F2, \
+  MO(_L2), LGUI(KC_E),  KC_F8,  KC_F2, \
   MO(_L3), KC_MPLY,  KC_F9,  KC_F3, \
   KC_MUTE, KC_MSTP, KC_F10, KC_F4, \
   KC_VOLD, KC_MPRV,  KC_F11, KC_F5, \
