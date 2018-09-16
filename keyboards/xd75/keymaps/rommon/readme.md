@@ -1,1 +1,1 @@
-# The default keymap for xd75
+# The rommon keymap for xd75
