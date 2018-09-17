@@ -10,64 +10,66 @@
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _BL 0
-#define _FL 1
+#define _FN 1
 #define _L2 2
 #define _L3 3
+#define _L4 4
+
+#define TAPPING_TOGGLE 2
 
 #define _______ KC_TRNS
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer
-   * ,------------------------.
-   * | FN   | APP  | F7  | F1 |
-   * |------|------|-----|----|
-   * | L2   | EXPL | F8  | F2 |
-   * |------|------|-----|----|
-   * | L3   | PLAY | F9  | F3 |
-   * |------|------|-----|----|
-   * | MUTE | STOP | F10 | F4 |
-   * |------|------|-----|----|
-   * | V-   | PREV | F11 | F5 |
-   * |------|------|-----|----|
-   * | V+   | NEXT | F12 | F6 |
-   * `------------------------'
+   * ,---------------------------.
+   * | APP    | F7  | F1  | FN   |
+   * |--------|-----|-----|------|
+   * | EXPL   | F8  | F2  | PLAY |
+   * |--------|-----|-----|------|
+   * | FORMAT | F9  | F3  | STOP |
+   * |--------|-----|-----|------|
+   * |        | F10 | F4  | MUTE |
+   * |--------|-----|-----|------|
+   * | PREV   | F11 | F5  | V-   |
+   * |--------|-----|-----|------|
+   * | NEXT   | F12 | F6  | V+   |
+   * `---------------------------'
    */
 
 [_BL] = LAYOUT_ortho_6x4(
-  MO(_FL), KC_APP,  KC_F7,  KC_F1, \
-  MO(_L2), LGUI(KC_E),  KC_F8,  KC_F2, \
-  MO(_L3), KC_MPLY,  KC_F9,  KC_F3, \
-  KC_MUTE, KC_MSTP, KC_F10, KC_F4, \
-  KC_VOLD, KC_MPRV,  KC_F11, KC_F5, \
-  KC_VOLU, KC_MNXT,  KC_F12, KC_F6),
-
+  KC_APP,           KC_F7,   KC_F1, TG(_FN), \
+  LGUI(KC_E),       KC_F8,   KC_F2, KC_MPLY, \
+  LALT(LSFT(KC_L)), KC_F9,   KC_F3, KC_MSTP, \
+  KC_TRNS,          KC_F10,  KC_F4, KC_MUTE, \
+  KC_MPRV,          KC_F11,  KC_F5, KC_VOLD, \
+  KC_MNXT,          KC_F12,  KC_F6, KC_VOLU),
   /* Keymap _FL: Function Layer
-   * ,-------------------.
-   * |RGBT|TAB | FN | BS |
-   * |----|----|----|----|
-   * |RGBM|RGBP|BTOG| -  |
-   * |----|----|----|----|
-   * |HUD |HUI |BON |    |
-   * |----|----|----| +  |
-   * |SAD |SAI |BOFF|    |
-   * |----|----|----|----|
-   * |VAD |VAS | 3  |    |
-   * |----|----|----| En |
-   * |   0     |RST |    |
-   * `-------------------'
+   * ,----------------------------.
+   * | M L   | M B 1 | TOG  | FN  |
+   * |-------|-------|------|-----|
+   * | M D   | M U   | MOD  | L2  |
+   * |-------|-------|------|-----|
+   * | M R   | M B 2 | RMOD | L3  |
+   * |-------|-------|------|-----|
+   * | M W U | SAI   | HUI  | L4  |
+   * |-------|-------|------|-----|
+   * | M W D | SAD   | HUD  |     |
+   * |-------|-------|------|-----|
+   * | M B 3 | VAD   | VAI  | RST |
+   * `----------------------------'
    */
-[_FL] = LAYOUT_ortho_6x4(
-  RGB_TOG,  KC_TAB,   KC_TRNS,   KC_BSPC, \
-  RGB_MOD,  RGB_M_P,  BL_TOGG,   KC_PMNS, \
-  RGB_HUD,  RGB_HUI,  BL_ON,     KC_F1,         \
-  RGB_SAD,  RGB_SAI,  BL_OFF,    KC_PPLS, \
-  RGB_VAD,  RGB_VAI,  KC_P3,     KC_F1,         \
-  KC_P0,    KC_F1,          RESET,     KC_PENT),
+[_FN] = LAYOUT_ortho_6x4(
+  KC_MS_L, KC_BTN1, RGB_TOG,  TG(_FN),\
+  KC_MS_D, KC_MS_U, RGB_MOD,  MO(_BL),\
+  KC_MS_R, KC_BTN2, RGB_RMOD, KC_TRNS,\
+  KC_WH_U, RGB_SAI, RGB_HUI,  KC_TRNS, \
+  KC_WH_D, RGB_SAD, RGB_HUD,  KC_TRNS, \
+  KC_BTN3, RGB_VAD, RGB_VAI,  RESET)
 };
 
 
 const uint16_t PROGMEM fn_actions[] = {
-    [0] = MO(_FL),
+    [0] = MO(_FN),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
