@@ -4,11 +4,7 @@
 
 //Tap Dance Declarations
 enum {
-  TD_LSQBRACKET_LBRACKET = 0,
-  TD_RSQBRACKET_RBRACKET,
-  TD_LCTL_L2,
-  TD_WIN_EXPLORER,
-  TD_FN2_FN3
+  TD_FN2_FN3 = 0
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -62,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [2] = LAYOUT(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  RESET,    _______,
+    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_NO,    _______,
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,                      _______,  _______,
     _______,  _______,  _______,  _______,  _______,   _______,  _______,   _______,  _______,  _______,  _______,  _______,  KC_WWW_BACK,           KC_PGUP,  KC_WWW_FORWARD,
@@ -70,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [3] = LAYOUT(
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_INS,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  RESET,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,
         _______,  _______,  KC_MS_WH_UP,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
         _______,  KC_MS_WH_LEFT,  KC_MS_WH_DOWN,  KC_MS_WH_RIGHT,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,                      _______,  _______,
         _______,  _______,  _______,  _______,  _______,   _______,  _______,   _______,  _______,  _______,  _______,  _______,  KC_MS_BTN1,           KC_MS_UP,  KC_MS_BTN2,
@@ -114,11 +110,6 @@ void arrow_dance_reset (qk_tap_dance_state_t *state, void *user_data) {
 
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-        //Tap once for Esc, twice for Caps Lock
-        [TD_LSQBRACKET_LBRACKET]  = ACTION_TAP_DANCE_DOUBLE(KC_LBRACKET, LSFT(KC_9)),
-        [TD_RSQBRACKET_RBRACKET]  = ACTION_TAP_DANCE_DOUBLE(KC_RBRACKET, LSFT(KC_0)),
-        [TD_LCTL_L2] = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, MO(2)),
-        [TD_WIN_EXPLORER] = ACTION_TAP_DANCE_DOUBLE(KC_LGUI, KC_MY_COMPUTER),
         [TD_FN2_FN3] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, arrow_dance_finished, arrow_dance_reset)
 // Other declarations would go here, separated by commas, if you have them
 };
